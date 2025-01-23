@@ -169,7 +169,7 @@ module "aurora_database" {
 # Docker Compose File Config for TFE on instance(s) using Flexible Deployment Options
 # ------------------------------------------------------------------------------------
 module "runtime_container_engine_config" {
-  source = "git::https://github.com/hashicorp/terraform-random-tfe-utility//modules/runtime_container_engine_config?ref=main"
+  source = "git::https://github.com/mallikabandaru/terraform-random-tfe-utility//modules/runtime_container_engine_config?ref=patch-1"
   count  = var.is_replicated_deployment ? 0 : 1
 
   tfe_license = var.hc_license
@@ -231,6 +231,8 @@ module "runtime_container_engine_config" {
   vault_role_id     = var.extern_vault_role_id
   vault_secret_id   = var.extern_vault_secret_id
   vault_token_renew = var.extern_vault_token_renew
+  tfe_log_forwarding_config_path = var.tfe_log_forwarding_config_path
+  tfe_log_forwarding_enabled = var.tfe_log_forwarding_enabled
 }
 
 # --------------------------------------------------------------------------------------------------
@@ -327,6 +329,9 @@ module "settings" {
   extern_vault_path        = var.extern_vault_path
   extern_vault_token_renew = var.extern_vault_token_renew
   extern_vault_namespace   = var.extern_vault_namespace
+  
+  log_forwarding_enabled   = var.log_forwarding_enabled
+  log_forwarding_config    = var.log_forwarding_config
 }
 
 # -----------------------------------------------------------------------------
